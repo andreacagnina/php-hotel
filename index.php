@@ -36,7 +36,6 @@ $hotels = [
         'vote' => 2,
         'distance_to_center' => 50
     ],
-
 ];
 
 ?>
@@ -57,7 +56,8 @@ $hotels = [
             <div class="row">
                 <div class="col-12">
                     <div class="content my-5 text-center">
-                        <table class="table table-hover">
+                        <table class="table table-hover caption-top">
+                            <caption>List of Hotels:</caption>
                             <thead>
                                 <tr class="table-success">
                                     <?php foreach ($hotels[0] as $index => $x) { ?>
@@ -70,7 +70,6 @@ $hotels = [
                             <tbody>
                                 <tr>
                                     <?php foreach ($hotels as $hotel) { ?>
-
                                         <td>
                                             <?php echo $hotel['name'] ?>
                                         </td>
@@ -83,15 +82,12 @@ $hotels = [
                                         </td>
 
                                         <td>
-                                            <?php echo $hotel['vote'] ?>
+                                            <?php echo $hotel['vote'] ?> <span>⭐</span>
                                         </td>
 
                                         <td>
-                                            <?php echo $hotel['distance_to_center'] ?>
+                                            <?php echo $hotel['distance_to_center'] ?> Km
                                         </td>
-
-
-
                                 </tr>
                             <?php } ?>
                             </tbody>
