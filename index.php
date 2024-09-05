@@ -1,7 +1,6 @@
 <?php
 
 $hotels = [
-
     [
         'name' => 'Hotel Belvedere',
         'description' => 'Hotel Belvedere Descrizione',
@@ -53,7 +52,56 @@ $hotels = [
 </head>
 
 <body>
-    Stampare tutti i nostri hotel con tutti i dati disponibili.
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content my-5 text-center">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="table-success">
+                                    <?php foreach ($hotels[0] as $index => $x) { ?>
+                                        <th scope="col">
+                                            <?php echo ucfirst(str_replace('_', ' ', $index,)) ?>
+                                        <?php }  ?>
+                                        </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <?php foreach ($hotels as $hotel) { ?>
+
+                                        <td>
+                                            <?php echo $hotel['name'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $hotel['description'] ?>
+                                        </td>
+
+                                        <td>
+                                            <?php echo $hotel['parking'] ? 'Incluso' : 'Non Incluso' ?>
+                                        </td>
+
+                                        <td>
+                                            <?php echo $hotel['vote'] ?>
+                                        </td>
+
+                                        <td>
+                                            <?php echo $hotel['distance_to_center'] ?>
+                                        </td>
+
+
+
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Stampare tutti i nostri hotel con tutti i dati disponibili.
     Iniziate in modo graduale.
     Prima stampate in pagina i dati, senza preoccuparvi dello stile.
     Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
@@ -61,7 +109,7 @@ $hotels = [
     1 - Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
     2 - Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
     NOTA: deve essere possibile utilizzare entrambi i filtri contemporaneamente (es. ottenere una lista con hotel che dispongono di parcheggio e che hanno un voto di tre stelle o superiore)
-    Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel.
+    Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel. -->
 
 </body>
 
