@@ -38,6 +38,28 @@ $hotels = [
     ],
 ];
 
+$filteredHotels = $hotels;
+
+if (isset($_GET['parking']) && $_GET['parking'] !== '') {
+    $tempHotels = [];
+
+    foreach ($hotels as $hotel) {
+        if ($_GET['parking'] == $hotel['parking']) {
+            $tempHotels[] = $hotel;
+        }
+    }
+    $filteredHotels = $tempHotels;
+}
+if (isset($_GET['vote']) && $_GET['vote'] !== '') {
+    $tempHotels = [];
+
+    foreach ($filteredHotels as $hotel) {
+        if ($_GET['vote'] <= $hotel['vote']) {
+            $tempHotels[] = $hotel;
+        }
+    }
+    $filteredHotels = $tempHotels;
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +77,30 @@ $hotels = [
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="content my-5 text-center">
+                    <div class="content my-5">
+                        <form action="./index.php" method="get">
+                            <div class="row">
+                                <div class="col-4">
+                                    <select name="parking" id="parking" class="form-select">
+                                        <option value="">Mostra tutti</option>
+                                        <option value="0" <?php echo (isset($_GET['parking']) && $_GET['parking'] == 0) ? 'selected' : ''; ?>>No</option>
+                                        <option value="1" <?php echo (isset($_GET['parking']) && $_GET['parking'] == 1) ? 'selected' : ''; ?>>Si</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" name="vote" placeholder="Voto" class="form-control" value="<?php echo $_GET['vote'] ?? '' ?>">
+                                </div>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-primary">Cerca</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="content text-center">
                         <table class="table table-hover caption-top">
                             <caption>List of Hotels:</caption>
                             <thead>
@@ -69,7 +114,7 @@ $hotels = [
                             </thead>
                             <tbody>
                                 <tr>
-                                    <?php foreach ($hotels as $hotel) { ?>
+                                    <?php foreach ($filteredHotels as $hotel) { ?>
                                         <td>
                                             <?php echo $hotel['name'] ?>
                                         </td>
@@ -77,7 +122,7 @@ $hotels = [
                                             <?php echo $hotel['description'] ?>
                                         </td>
 
-                                        <td>
+                                        <td class="fw-bold <?php echo $hotel['parking'] ? 'text-success' : 'text-danger' ?>">
                                             <?php echo $hotel['parking'] ? 'Incluso' : 'Non Incluso' ?>
                                         </td>
 
@@ -97,15 +142,11 @@ $hotels = [
             </div>
         </div>
     </main>
-    <!-- Stampare tutti i nostri hotel con tutti i dati disponibili.
-    Iniziate in modo graduale.
-    Prima stampate in pagina i dati, senza preoccuparvi dello stile.
-    Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
-    **Bonus:**
+    <!-- **Bonus:**
     1 - Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
     2 - Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
     NOTA: deve essere possibile utilizzare entrambi i filtri contemporaneamente (es. ottenere una lista con hotel che dispongono di parcheggio e che hanno un voto di tre stelle o superiore)
-    Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel. -->
+    Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel.  -->
 
 </body>
 
